@@ -2,19 +2,21 @@
   "name": "test-project",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev:server": "node --env-file=.env --watch -r ts-node/register server/index.ts",
+    "dev": "next dev --turbo",
+    "dev:server": "node --watch -r ts-node/register server/ws-server.ts",
+    "ws": "ts-node server/ws-server.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
     "next": "15.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-use-websocket": "^4.13.0"
+    "react-use-websocket": "^4.13.0",
+    "use-debounce": "^10.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -23,10 +25,10 @@
     "@types/node": "^24.2.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
+    "@types/ws": "^8.18.1",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
     "tailwindcss": "^4",
-    "@types/ws": "^8.18.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "ws": "^8.18.3"

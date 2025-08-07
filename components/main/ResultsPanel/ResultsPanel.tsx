@@ -27,7 +27,7 @@ export const ResultsPanel: FC<ResultsPanelProps> = memo(({ status, results }) =>
 
       <div className='flex flex-col gap-2'>
         {Object.entries(results).map((result) => {
-          const percents = (result[1] / totalCount) * 100
+          const percents = (result[1] / totalCount) * 100 || 0
 
           return (
             <div key={result[0]}>
