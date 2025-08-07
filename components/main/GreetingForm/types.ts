@@ -1,7 +1,7 @@
-import type { WebSocketContextType } from '@/providers/WebSocketProvider'
-import { ReadyState } from 'react-use-websocket'
+import type { WebSocketContextType } from '@/providers/WebSocketProvider';
+import { ReadyState } from 'react-use-websocket';
 
 export type GreetingFormProps = {
-  readyState: ReadyState
-  sendMessage: WebSocketContextType['sendJsonMessage']
-}
+  readyState: ReadyState;
+  sendMessage: WebSocketContextType['sendJsonMessage'];
+};
