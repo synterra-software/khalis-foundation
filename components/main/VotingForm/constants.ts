@@ -1,1 +1,1 @@
-export const FORM_DEBOUNCE_TIME = 500
+export const FORM_DEBOUNCE_TIME = 500;

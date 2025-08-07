@@ -1,1 +1,1 @@
-export * from './GreetingForm'
+export * from './GreetingForm';

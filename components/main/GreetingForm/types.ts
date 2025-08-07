@@ -1,6 +1,6 @@
-import { ReadyState } from 'react-use-websocket'
+import { ReadyState } from 'react-use-websocket';
 
 export type GreetingFormProps = {
-  readyState: ReadyState
-  sendMessage: (message: string) => void
-}
+  readyState: ReadyState;
+  sendMessage: (message: string) => void;
+};

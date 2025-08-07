@@ -1,7 +1,7 @@
-import type { Status } from '@/shared/types'
+import type { Status } from '@/shared/types';
 
 export type PresencePanelProps = {
-  status: Status
-  users: string[]
-  onlineCount: number
-}
+  status: Status;
+  users: string[];
+  onlineCount: number;
+};

@@ -1,1 +1,1 @@
-export * from './VotingForm'
+export * from './VotingForm';

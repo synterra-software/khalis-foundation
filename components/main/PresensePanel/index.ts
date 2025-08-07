@@ -1,1 +1,1 @@
-export * from './PresencePanel'
+export * from './PresencePanel';

@@ -1,4 +1,4 @@
 export type VotingFormProps = {
-  options: string[]
-  sendMessage: (option: string) => void
-}
+  options: string[];
+  sendMessage: (option: string) => void;
+};
