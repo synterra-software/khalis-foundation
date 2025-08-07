@@ -24,4 +24,4 @@ Main architecture decisions:
 - Part of components are client side to use react feature and where it is possible used server side ones
 - Props drilling in home component invoked to omit multiple subscriptions to server messages
 
-short [video](https://drive.google.com/file/d/1V6utkYGur4TTn782EBFsQBm_-rHvE5wx/view?usp=sharing) with results
+short [video](https://drive.google.com/file/d/1Iof_ReTcq4FqcH5AtywYfr4sWWCYKQVu/view?usp=sharing) with results
