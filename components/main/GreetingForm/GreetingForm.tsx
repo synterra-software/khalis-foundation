@@ -1,11 +1,19 @@
 import { Button } from '@/shared/components';
-import { memo, type FC, type FormEvent } from 'react';
+import { memo, useEffect, useState, type FC, type FormEvent } from 'react';
 import { ReadyState } from 'react-use-websocket';
 import { GreetingFormProps } from './types';
-import { USER_NAME_STORAGE_KEY } from '@/shared/constants';
+import { USER_NAME_SET_EVENT, USER_NAME_STORAGE_KEY } from '@/shared/constants';
 
 export const GreetingForm: FC<GreetingFormProps> = memo(
   ({ readyState, sendMessage }) => {
+    const [name, setName] = useState('');
+
+    const join = (newName: string) => {
+      sendMessage({ type: 'join', name: newName });
+      window.dispatchEvent(new CustomEvent(USER_NAME_SET_EVENT));
+      setName(newName);
+    }
+
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const input = event.currentTarget.elements.namedItem(
@@ -13,8 +21,15 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
       ) as HTMLInputElement;
 
       localStorage.setItem(USER_NAME_STORAGE_KEY, input.value);
-      sendMessage({ type: 'join', name: input.value });
+      join(input.value)
     };
+
+    useEffect(() => {
+      const storedName = localStorage.getItem(USER_NAME_STORAGE_KEY);
+      if (storedName) {
+        join(storedName);
+      }
+    }, [])
 
     return (
       <div className="w-full">
@@ -22,7 +37,7 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
           className="w-full flex flex-col gap-2 items-center"
           onSubmit={onSubmit}
         >
-          <label htmlFor="name">Greetings, please introduce yourself</label>
+          <label htmlFor="name">Greetings, {name || 'please introduce yourself'}</label>
 
           <input
             id="name"

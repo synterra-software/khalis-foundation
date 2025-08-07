@@ -1,12 +1,28 @@
 import { useWebSocketContext } from '@/providers/WebSocketProvider';
+import { USER_NAME_SET_EVENT, USER_NAME_STORAGE_KEY } from '@/shared/constants';
 import { useEffect, useState } from 'react';
 
-export const useHome = () => {
+export const useApp = () => {
   const { sendJsonMessage, lastJsonMessage, readyState } =
     useWebSocketContext();
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
   const [onlineUsersCount, setOnlineUsersCount] = useState<number>(0);
   const [votes, setVotes] = useState<Record<string, number>>({});
+  const [isVotingFormVisible, setIsVotingFormVisible] = useState(false);
+
+  useEffect(() => {
+    const listener = () => setIsVotingFormVisible(true);
+
+    if (localStorage.getItem(USER_NAME_STORAGE_KEY) !== null) {
+      listener();
+    }
+
+    window.addEventListener(USER_NAME_SET_EVENT, listener);
+
+    return () => {
+      window.removeEventListener(USER_NAME_SET_EVENT, listener);
+    };
+  }, [])
 
   useEffect(() => {
     if (!lastJsonMessage) {
@@ -23,16 +39,10 @@ export const useHome = () => {
         setVotes(lastJsonMessage.votes);
         break;
 
-      case 'state':
-        setOnlineUsers(lastJsonMessage.online);
-        setVotes(lastJsonMessage.votes);
-        setOnlineUsersCount(lastJsonMessage.onlineCount);
-        break;
-
       default:
         break;
     }
   }, [lastJsonMessage]);
 
-  return { onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState };
+  return { isVotingFormVisible, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState };
 };

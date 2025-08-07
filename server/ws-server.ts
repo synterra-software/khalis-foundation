@@ -53,19 +53,8 @@ const handleJoin = (ws: WebSocket, name: string): void => {
 
   console.log(`${name} joined`);
 
-  ws.send(
-    JSON.stringify({
-      type: 'state',
-      online: Array.from(clients.values()).slice(
-        clients.size - ONLINE_USERS_COUNT_TO_SHOW,
-        clients.size
-      ),
-      onlineCount: clients.size,
-      votes: formatVotes(),
-    })
-  );
-
   broadcastPresence();
+  broadcastCounts();
 };
 
 const handleVote = (ws: WebSocket, optionId: OptionId): void => {
@@ -101,7 +90,7 @@ const handleError = (ws: WebSocket, message: string): void => {
 const broadcastPresence = (): void => {
   broadcast({
     type: 'presence',
-    online: Array.from(clients.values()).slice(clients.size - 10, clients.size),
+    online: Array.from(clients.values()).slice(clients.size - ONLINE_USERS_COUNT_TO_SHOW, clients.size),
     onlineCount: clients.size,
   });
 };

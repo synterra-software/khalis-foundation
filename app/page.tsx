@@ -6,12 +6,12 @@ import {
   VotingForm,
   GreetingForm,
 } from '@/components/main';
-import { useHome } from '@/hooks/use-home';
+import { useApp } from '@/hooks/useApp';
 import { WebSocketProvider } from '@/providers/WebSocketProvider';
 
 const HomePage = () => {
-  const { onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState } =
-    useHome();
+  const { isVotingFormVisible, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState } =
+    useApp();
 
   return (
     <div className="font-sans flex min-h-screen p-8">
@@ -28,12 +28,14 @@ const HomePage = () => {
             />
           </div>
 
-          <div>
-            <VotingForm
-              options={['A', 'B', 'C']}
-              sendMessage={sendJsonMessage}
-            />
-          </div>
+          {isVotingFormVisible && (
+            <div>
+              <VotingForm
+                options={['A', 'B', 'C']}
+                sendMessage={sendJsonMessage}
+              />
+            </div>
+          )}
         </section>
 
         <aside

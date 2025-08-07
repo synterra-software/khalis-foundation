@@ -9,10 +9,4 @@ export type ClientMsg =
 export type ServerMsg =
   | { type: 'presence'; online: string[]; onlineCount: number }
   | { type: 'votes'; votes: Record<OptionId, number> }
-  | {
-      type: 'state';
-      online: string[];
-      onlineCount: number;
-      votes: Record<OptionId, number>;
-    }
   | { type: 'error'; message: string };
