@@ -1,5 +1,5 @@
 import { Button } from '@/shared/components';
-import { memo, useEffect, useState, type FC, type FormEvent } from 'react';
+import { memo, useEffect, useRef, useState, type FC, type FormEvent } from 'react';
 import { ReadyState } from 'react-use-websocket';
 import { GreetingFormProps } from './types';
 import { USER_NAME_SET_EVENT, USER_NAME_STORAGE_KEY } from '@/shared/constants';
@@ -7,11 +7,15 @@ import { USER_NAME_SET_EVENT, USER_NAME_STORAGE_KEY } from '@/shared/constants';
 export const GreetingForm: FC<GreetingFormProps> = memo(
   ({ readyState, sendMessage }) => {
     const [name, setName] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const join = (newName: string) => {
       sendMessage({ type: 'join', name: newName });
       window.dispatchEvent(new CustomEvent(USER_NAME_SET_EVENT));
       setName(newName);
+      if (inputRef.current) {
+        inputRef.current.value = newName;
+      }
     }
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -48,6 +52,7 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
             name="name"
             placeholder="Enter your name"
             aria-required="true"
+            ref={inputRef}
           />
 
           <div

@@ -10,7 +10,7 @@ import { useApp } from '@/hooks/useApp';
 import { WebSocketProvider } from '@/providers/WebSocketProvider';
 
 const HomePage = () => {
-  const { isVotingFormVisible, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState } =
+  const { isLoggedIn, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState } =
     useApp();
 
   return (
@@ -28,7 +28,7 @@ const HomePage = () => {
             />
           </div>
 
-          {isVotingFormVisible && (
+          {isLoggedIn && (
             <div>
               <VotingForm
                 options={['A', 'B', 'C']}
@@ -38,7 +38,7 @@ const HomePage = () => {
           )}
         </section>
 
-        <aside
+        {isLoggedIn && <aside
           className="flex flex-col justify-between shrink-1 basis-0 flex-grow-[1] overflow-hidden"
           aria-label="Live information panel"
         >
@@ -49,6 +49,7 @@ const HomePage = () => {
           />
           <ResultsPanel status="Ready" results={votes} />
         </aside>
+        }
       </main>
     </div>
   );

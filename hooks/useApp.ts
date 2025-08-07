@@ -8,10 +8,10 @@ export const useApp = () => {
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
   const [onlineUsersCount, setOnlineUsersCount] = useState<number>(0);
   const [votes, setVotes] = useState<Record<string, number>>({});
-  const [isVotingFormVisible, setIsVotingFormVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const listener = () => setIsVotingFormVisible(true);
+    const listener = () => setIsLoggedIn(true);
 
     if (localStorage.getItem(USER_NAME_STORAGE_KEY) !== null) {
       listener();
@@ -44,5 +44,5 @@ export const useApp = () => {
     }
   }, [lastJsonMessage]);
 
-  return { isVotingFormVisible, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState };
+  return { isLoggedIn, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState };
 };
