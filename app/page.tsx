@@ -10,8 +10,14 @@ import { useApp } from '@/hooks/useApp';
 import { WebSocketProvider } from '@/providers/WebSocketProvider';
 
 const HomePage = () => {
-  const { isLoggedIn, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState } =
-    useApp();
+  const {
+    isLoggedIn,
+    onlineUsers,
+    onlineUsersCount,
+    votes,
+    sendJsonMessage,
+    readyState,
+  } = useApp();
 
   return (
     <div className="font-sans flex min-h-screen p-8">
@@ -38,18 +44,19 @@ const HomePage = () => {
           )}
         </section>
 
-        {isLoggedIn && <aside
-          className="flex flex-col justify-between shrink-1 basis-0 flex-grow-[1] overflow-hidden"
-          aria-label="Live information panel"
-        >
-          <PresencePanel
-            status="Ready"
-            users={onlineUsers}
-            onlineCount={onlineUsersCount}
-          />
-          <ResultsPanel status="Ready" results={votes} />
-        </aside>
-        }
+        {isLoggedIn && (
+          <aside
+            className="flex flex-col justify-between shrink-1 basis-0 flex-grow-[1] overflow-hidden"
+            aria-label="Live information panel"
+          >
+            <PresencePanel
+              status="Ready"
+              users={onlineUsers}
+              onlineCount={onlineUsersCount}
+            />
+            <ResultsPanel status="Ready" results={votes} />
+          </aside>
+        )}
       </main>
     </div>
   );

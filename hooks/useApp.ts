@@ -22,7 +22,7 @@ export const useApp = () => {
     return () => {
       window.removeEventListener(USER_NAME_SET_EVENT, listener);
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!lastJsonMessage) {
@@ -44,5 +44,12 @@ export const useApp = () => {
     }
   }, [lastJsonMessage]);
 
-  return { isLoggedIn, onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState };
+  return {
+    isLoggedIn,
+    onlineUsers,
+    onlineUsersCount,
+    votes,
+    sendJsonMessage,
+    readyState,
+  };
 };

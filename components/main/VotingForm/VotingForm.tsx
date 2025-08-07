@@ -1,6 +1,13 @@
 'use client';
 
-import { memo, useCallback, useEffect, useState, type FC, type FormEvent } from 'react';
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+  type FC,
+  type FormEvent,
+} from 'react';
 import { Button } from '@/shared/components';
 import type { VotingFormProps } from './types';
 import { FORM_DEBOUNCE_TIME } from './constants';

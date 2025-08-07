@@ -1,5 +1,12 @@
 import { Button } from '@/shared/components';
-import { memo, useEffect, useRef, useState, type FC, type FormEvent } from 'react';
+import {
+  memo,
+  useEffect,
+  useRef,
+  useState,
+  type FC,
+  type FormEvent,
+} from 'react';
 import { ReadyState } from 'react-use-websocket';
 import { GreetingFormProps } from './types';
 import { USER_NAME_SET_EVENT, USER_NAME_STORAGE_KEY } from '@/shared/constants';
@@ -16,7 +23,7 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
       if (inputRef.current) {
         inputRef.current.value = newName;
       }
-    }
+    };
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -25,7 +32,7 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
       ) as HTMLInputElement;
 
       localStorage.setItem(USER_NAME_STORAGE_KEY, input.value);
-      join(input.value)
+      join(input.value);
     };
 
     useEffect(() => {
@@ -33,7 +40,7 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
       if (storedName) {
         join(storedName);
       }
-    }, [])
+    }, []);
 
     return (
       <div className="w-full">
@@ -41,7 +48,9 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
           className="w-full flex flex-col gap-2 items-center"
           onSubmit={onSubmit}
         >
-          <label htmlFor="name">Greetings, {name || 'please introduce yourself'}</label>
+          <label htmlFor="name">
+            Greetings, {name || 'please introduce yourself'}
+          </label>
 
           <input
             id="name"

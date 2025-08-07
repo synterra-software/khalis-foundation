@@ -90,7 +90,10 @@ const handleError = (ws: WebSocket, message: string): void => {
 const broadcastPresence = (): void => {
   broadcast({
     type: 'presence',
-    online: Array.from(clients.values()).slice(clients.size - ONLINE_USERS_COUNT_TO_SHOW, clients.size),
+    online: Array.from(clients.values()).slice(
+      clients.size - ONLINE_USERS_COUNT_TO_SHOW,
+      clients.size
+    ),
     onlineCount: clients.size,
   });
 };
