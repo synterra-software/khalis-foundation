@@ -6,8 +6,8 @@ Follow next steps:
    ```npm i && npm i -D```
 
 2. Start development server:
-   Terminal A: ```npm run dev``` - nextjs server
-   Terminal B: ```npm run ws``` - websocket server
+   - Terminal A: ```npm run dev``` - nextjs server
+   - Terminal B: ```npm run ws``` - websocket server
 
 3. Go to http://localhost:3000 to see the result
 
