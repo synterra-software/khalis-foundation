@@ -1,30 +1,17 @@
+import type { ClientMsg, OptionId, ServerMsg } from '@/shared/types';
 import { WebSocketServer, WebSocket } from 'ws';
 
 const ONLINE_USERS_COUNT_TO_SHOW = 10;
 
-export type OptionId = 'A' | 'B' | 'C';
-
-export type ClientMsg =
-  | { type: 'join'; name: string }
-  | { type: 'vote'; optionId: OptionId };
-
-export type ServerMsg =
-  | { type: 'presence'; online: string[]; onlineCount: number }
-  | { type: 'votes'; votes: Record<OptionId, number> }
-  | {
-      type: 'state';
-      online: string[];
-      onlineCount: number;
-      votes: Record<OptionId, number>;
-    }
-  | { type: 'error'; message: string };
-
-const wss = new WebSocketServer({ port: 3001 });
+const port = process.env.NEXT_PUBLIC_SERVER_PORT
+  ? parseInt(process.env.NEXT_PUBLIC_SERVER_PORT)
+  : 3001;
+const wss = new WebSocketServer({ port });
 
 const clients = new Map<WebSocket, string>();
 const votes = new Map<OptionId, number>();
 
-console.log('WebSocket server running on ws://localhost:3001');
+console.log(`WebSocket server running on ws://localhost:${port}`);
 
 wss.on('connection', (ws: WebSocket) => {
   console.log('Client connected');
@@ -43,7 +30,7 @@ wss.on('connection', (ws: WebSocket) => {
           break;
 
         default:
-          console.log('Unknown message type:', (message as any).type);
+          console.log('Unknown message type:', message);
           handleError(ws, 'Unknown message type');
       }
     } catch (error) {

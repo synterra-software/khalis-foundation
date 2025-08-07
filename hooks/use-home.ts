@@ -1,49 +1,38 @@
+import { useWebSocketContext } from '@/providers/WebSocketProvider';
 import { useEffect, useState } from 'react';
-import useWebSocket from 'react-use-websocket';
-
-const MAX_DELAY = 30000;
-
-const exponentialBackoff = (attempt: number) =>
-  Math.min(1000 * 2 ** attempt, MAX_DELAY);
 
 export const useHome = () => {
-  const { lastMessage, sendMessage, readyState } = useWebSocket(
-    'ws://localhost:3001',
-    {
-      shouldReconnect: () => true,
-      reconnectAttempts: 10,
-      reconnectInterval: exponentialBackoff,
-    }
-  );
+  const { sendJsonMessage, lastJsonMessage, readyState } =
+    useWebSocketContext();
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
   const [onlineUsersCount, setOnlineUsersCount] = useState<number>(0);
   const [votes, setVotes] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    if (!lastMessage) return;
+    if (!lastJsonMessage) {
+      return;
+    }
 
-    const data = JSON.parse(lastMessage.data);
-
-    switch (data.type) {
+    switch (lastJsonMessage.type) {
       case 'presence':
-        setOnlineUsers(data.online);
-        setOnlineUsersCount(data.onlineCount);
+        setOnlineUsers(lastJsonMessage.online);
+        setOnlineUsersCount(lastJsonMessage.onlineCount);
         break;
 
       case 'votes':
-        setVotes(data.votes);
+        setVotes(lastJsonMessage.votes);
         break;
 
       case 'state':
-        setOnlineUsers(data.online);
-        setVotes(data.votes);
-        setOnlineUsersCount(data.onlineCount);
+        setOnlineUsers(lastJsonMessage.online);
+        setVotes(lastJsonMessage.votes);
+        setOnlineUsersCount(lastJsonMessage.onlineCount);
         break;
 
       default:
         break;
     }
-  }, [lastMessage]);
+  }, [lastJsonMessage]);
 
-  return { onlineUsers, onlineUsersCount, votes, sendMessage, readyState };
+  return { onlineUsers, onlineUsersCount, votes, sendJsonMessage, readyState };
 };

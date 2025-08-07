@@ -2,6 +2,7 @@ import { Button } from '@/shared/components';
 import { memo, type FC, type FormEvent } from 'react';
 import { ReadyState } from 'react-use-websocket';
 import { GreetingFormProps } from './types';
+import { USER_NAME_STORAGE_KEY } from '@/shared/constants';
 
 export const GreetingForm: FC<GreetingFormProps> = memo(
   ({ readyState, sendMessage }) => {
@@ -11,7 +12,8 @@ export const GreetingForm: FC<GreetingFormProps> = memo(
         'name'
       ) as HTMLInputElement;
 
-      sendMessage(JSON.stringify({ type: 'join', name: input.value }));
+      localStorage.setItem(USER_NAME_STORAGE_KEY, input.value);
+      sendMessage({ type: 'join', name: input.value });
     };
 
     return (
